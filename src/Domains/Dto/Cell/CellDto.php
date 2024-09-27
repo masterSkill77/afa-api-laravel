@@ -12,7 +12,8 @@ final class CellDto
     {
         $cell = [];
 
-
+        if (!$cellResponse->features)
+            return null;
         $properties = $cellResponse->features[0]->properties;
         $coordinates = $cellResponse->features[0]->geometry->coordinates;
         $coordinatesResult = [];
