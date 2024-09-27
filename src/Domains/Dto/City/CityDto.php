@@ -3,8 +3,8 @@
 namespace Masterskill\AfaApiLaravel\Domains\Dto\City;
 
 use Masterskill\AfaApiLaravel\Helpers\Centroide;
-
 use App\Models\City;
+use Masterskill\AfaApiLaravel\Helpers\Level;
 
 final class CityDto
 {
@@ -34,6 +34,7 @@ final class CityDto
         $city[] = [
             'jurisd_local_id' => $properties->jurisd_local_id,
             'code_b32nvu' => $code[count($code) - 1],
+            'l' => Level::getLevel($properties->side),
             'polygon' => [
                 'type' => 'Polygon',
                 'coordinates' => $coordinates
