@@ -16,7 +16,9 @@ composer require masterskill/afa-code-laravel
 
 ## City Querying
 
-For querying a city, you should initialize the cityQuery class
+For querying a city, you should initialize the cityQuery class.
+
+Make sure you have the App\Models\City on the project.
 
 ```php
 use Masterskill\AfaApiLaravel\Domains\Http\City\CityQuery;
