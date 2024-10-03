@@ -14,7 +14,7 @@ final class CityDto
 
 
         $properties = $cityResponse->features[0]->properties;
-        $coordinates = $cityResponse->features[0]->geometry->coordinates;
+        $coordinates = $properties->wikidata_id ? $cityResponse->features[0]->geometry->coordinates[0] : $cityResponse->features[0]->geometry->coordinates;
         $coordinatesResult = [];
 
         foreach ($coordinates[0] as $point) {
