@@ -4,7 +4,7 @@ namespace Masterskill\AfaApiLaravel\Helpers;
 
 class Level
 {
-    public static function getLevel(mixed $side): int
+    public static function getLevel(mixed $side): ?int
     {
         return match ((int) ceil($side)) {
             180 => 0.5,
@@ -12,6 +12,7 @@ class Level
             130 => 16,
             105 => 90.5,
             80 => 512,
+            default => null
         };
     }
 }
