@@ -4,6 +4,7 @@ namespace Masterskill\AfaApiLaravel\Domains\Http\Cell;
 
 use Masterskill\AfaApiLaravel\Domains\Dto\Cell\CellDto;
 use Masterskill\AfaApiLaravel\Domains\Http\Base;
+use Masterskill\AfaApiLaravel\Helpers\Level;
 
 class CellByGeoQuery extends Base
 {
@@ -14,6 +15,7 @@ class CellByGeoQuery extends Base
 
     protected function processInput(float $lon, float $lat, ?int $level = null): string
     {
+        $level = Level::getLevel($level);
         return "/geo:" . $lat . "," . $lon . ($level ? ",u=" . $level : "") . ".json";
     }
 
