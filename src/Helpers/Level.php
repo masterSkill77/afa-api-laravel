@@ -7,12 +7,11 @@ class Level
     public static function getLevel(mixed $side): int
     {
         return match ((int) ceil($side)) {
-            6 => 155,
-            1024 => 80,
-            181 => 105,
-            32 => 130,
-            6 => 155,
-            1 => 180,
+            180 => 0.5,
+            155 => 2.5,
+            130 => 16,
+            105 => 90.5,
+            80 => 512,
         };
     }
 }

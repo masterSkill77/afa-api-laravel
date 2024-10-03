@@ -12,14 +12,14 @@ class CellByGeoQuery extends Base
         parent::__construct();
     }
 
-    protected function processInput(float $lon, float $lat): string
+    protected function processInput(float $lon, float $lat, ?int $level = null): string
     {
-        return "/geo:" . $lat . "," . $lon . ".json";
+        return "/geo:" . $lat . "," . $lon . ($level ? ",u=" . $level : "") . ".json";
     }
 
-    public function query(float $lon, float $lat)
+    public function query(float $lon, float $lat, ?int $level = null)
     {
-        $query = $this->processInput($lon, $lat);
+        $query = $this->processInput($lon, $lat, $level);
 
         $response = json_decode($this->client->get($query)->getBody()->getContents(), false);
 
