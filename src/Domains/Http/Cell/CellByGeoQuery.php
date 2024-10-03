@@ -16,7 +16,7 @@ class CellByGeoQuery extends Base
     protected function processInput(float $lon, float $lat, ?int $level = null): string
     {
         $level = Level::getLevel($level);
-        return "/geo:" . $lat . "," . $lon . ($level ? ",u=" . $level : "") . ".json";
+        return "/geo:" . $lat . "," . $lon . ($level ? ";u=" . $level : "") . ".json";
     }
 
     public function query(float $lon, float $lat, ?int $level = null)
