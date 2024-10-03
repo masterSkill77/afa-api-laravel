@@ -14,7 +14,10 @@ final class CityDto
 
 
         $properties = $cityResponse->features[0]->properties;
-        $coordinates = $properties->wikidata_id ? $cityResponse->features[0]->geometry->coordinates[0] : $cityResponse->features[0]->geometry->coordinates;
+
+        $isCity = $properties->wikidata_id;
+
+        $coordinates = $isCity ? $cityResponse->features[0]->geometry->coordinates[0] : $cityResponse->features[0]->geometry->coordinates;
         $coordinatesResult = [];
 
         foreach ($coordinates[0] as $point) {
@@ -30,11 +33,11 @@ final class CityDto
 
         $cityResult = City::where('jurisd_local_id', $properties->jurisd_local_id)->first();
 
-        $code = explode('~', $properties->short_code);
+        $code = $isCity  ? explode('-', $properties->canonical_pathname) : explode('~', $properties->short_code);
         $city[] = [
             'jurisd_local_id' => $properties->jurisd_local_id,
             'code_b32nvu' => $code[count($code) - 1],
-            'l' => Level::getLevel($properties->side),
+            'l' => $isCity ? null : Level::getLevel($properties->side),
             'polygon' => [
                 'type' => 'Polygon',
                 'coordinates' => $coordinates
