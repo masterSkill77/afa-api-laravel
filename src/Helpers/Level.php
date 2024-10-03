@@ -15,4 +15,15 @@ class Level
             default => null
         };
     }
+
+    public static function getLevelFromResponse(mixed $side): int
+    {
+        return match ((int) ceil($side)) {
+            6 => 155,
+            1024 => 80,
+            181 => 105,
+            32 => 130,
+            1 => 180,
+        };
+    }
 }

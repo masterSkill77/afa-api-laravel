@@ -35,7 +35,7 @@ final class CellDto
         $cell[] = [
             'jurisd_local_id' => $properties->jurisd_local_id,
             'code_b32nvu' => $code[count($code) - 1],
-            'l' => Level::getLevel($properties->side),
+            'l' => Level::getLevelFromResponse($properties->side),
             'polygon' => [
                 'type' => 'Polygon',
                 'coordinates' => $coordinates
