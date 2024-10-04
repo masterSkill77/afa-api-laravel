@@ -15,7 +15,7 @@ final class CityDto
 
         $properties = $cityResponse->features[0]->properties;
 
-        $isCity = $properties->wikidata_id;
+        $isCity = isset($properties->wikidata_id);
 
         $coordinates = $isCity ? $cityResponse->features[0]->geometry->coordinates[0] : $cityResponse->features[0]->geometry->coordinates;
         $coordinatesResult = [];
