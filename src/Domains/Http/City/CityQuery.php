@@ -2,6 +2,7 @@
 
 namespace Masterskill\AfaApiLaravel\Domains\Http\City;
 
+use Exception;
 use Masterskill\AfaApiLaravel\Domains\Dto\City\CityDto;
 use Masterskill\AfaApiLaravel\Domains\Http\Base;
 
@@ -33,9 +34,11 @@ class CityQuery extends Base
     public function query(string $query)
     {
         $query = $this->processInput($query);
-
-        $response = json_decode($this->client->get($query)->getBody()->getContents(), false);
-
-        return ($response->features) ? CityDto::fromResponse($response) : null;
+        try {
+            $response = json_decode($this->client->get($query)->getBody()->getContents(), false);
+            return ($response->features) ? CityDto::fromResponse($response) : null;
+        } catch (Exception $e) {
+            return [];
+        }
     }
 }
