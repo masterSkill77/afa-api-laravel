@@ -12,43 +12,43 @@ final class CityDto
     {
         $city = [];
 
+        if (isset($cityResponse->features[0])) {
+            $properties = $cityResponse->features[0]->properties;
 
-        $properties = $cityResponse->features[0]->properties;
+            $isCity = isset($properties->wikidata_id);
 
-        $isCity = isset($properties->wikidata_id);
+            $coordinates = $isCity ? $cityResponse->features[0]->geometry->coordinates[0] : $cityResponse->features[0]->geometry->coordinates;
+            $coordinatesResult = [];
 
-        $coordinates = $isCity ? $cityResponse->features[0]->geometry->coordinates[0] : $cityResponse->features[0]->geometry->coordinates;
-        $coordinatesResult = [];
+            foreach ($coordinates[0] as $point) {
+                $coordinatesResult[] = [
+                    'lon' => $point[0],
+                    'lat' => $point[1],
+                ];
+            }
 
-        foreach ($coordinates[0] as $point) {
-            $coordinatesResult[] = [
-                'lon' => $point[0],
-                'lat' => $point[1],
+            $coordinates[0] = $coordinatesResult;
+
+            $centroid = Centroide::calculateCentroid($coordinates[0]);
+
+            $cityResult = City::where('jurisd_local_id', $properties->jurisd_local_id)->first();
+
+            $code = $isCity  ? explode('-', $properties->canonical_pathname) : explode('~', $properties->short_code);
+            $city[] = [
+                'jurisd_local_id' => $properties->jurisd_local_id,
+                'code_b32nvu' => $code[count($code) - 1],
+                'l' => $isCity ? null : Level::getLevel($properties->side),
+                'polygon' => [
+                    'type' => 'Polygon',
+                    'coordinates' => $coordinates
+                ],
+                'centroide' => [
+                    'type' => 'Point',
+                    'coordinates' => $centroid
+                ],
+                'city' => $cityResult
             ];
         }
-
-        $coordinates[0] = $coordinatesResult;
-
-        $centroid = Centroide::calculateCentroid($coordinates[0]);
-
-        $cityResult = City::where('jurisd_local_id', $properties->jurisd_local_id)->first();
-
-        $code = $isCity  ? explode('-', $properties->canonical_pathname) : explode('~', $properties->short_code);
-        $city[] = [
-            'jurisd_local_id' => $properties->jurisd_local_id,
-            'code_b32nvu' => $code[count($code) - 1],
-            'l' => $isCity ? null : Level::getLevel($properties->side),
-            'polygon' => [
-                'type' => 'Polygon',
-                'coordinates' => $coordinates
-            ],
-            'centroide' => [
-                'type' => 'Point',
-                'coordinates' => $centroid
-            ],
-            'city' => $cityResult
-        ];
-
         return $city;
     }
 }
