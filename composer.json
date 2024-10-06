@@ -1,7 +1,7 @@
 {
 	"name": "masterskill/afa-api-laravel",
 	"description": "A package for the AFA Code API Integration, that needs to interacts with it's database and existing database",
-	"type": "project",
+	"type": "package",
 	"license": "MIT",
 	"prefer-stable": true,
 	"minimum-stability": "stable",
