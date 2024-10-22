@@ -37,7 +37,7 @@ final class CityDto
             $city[] = [
                 'jurisd_local_id' => $properties->jurisd_local_id,
                 'code_b32nvu' => $code[count($code) - 1],
-                'l' => $isCity ? null : Level::getLevelFromResponse($properties->side),
+                'l' => $isCity ? Level::CITY_LEVEL : Level::getLevelFromResponse($properties->side),
                 'polygon' => [
                     'type' => 'Polygon',
                     'coordinates' => $coordinates

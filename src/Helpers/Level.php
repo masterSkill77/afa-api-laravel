@@ -4,6 +4,7 @@ namespace Masterskill\AfaApiLaravel\Helpers;
 
 class Level
 {
+    const CITY_LEVEL = 1;
     public static function getLevel(mixed $side): mixed
     {
         return match ((int) ceil($side)) {
