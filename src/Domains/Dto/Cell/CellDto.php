@@ -20,8 +20,8 @@ final class CellDto
 
         foreach ($coordinates[0] as $point) {
             $coordinatesResult[] = [
-                'lon' => $point[0],
-                'lat' => $point[1],
+                'lon' => number_format($point[0], 6, '.', ','),
+                'lat' => number_format($point[1], 6, '.', ','),
             ];
         }
 
