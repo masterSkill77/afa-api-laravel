@@ -31,6 +31,8 @@ final class CellDto
 
         $cellResult = City::where('jurisd_local_id', $properties->jurisd_local_id)->first();
 
+        $cellResult->level = Level::CITY_LEVEL;
+
         $code = explode('~', $properties->short_code);
         $cell[] = [
             'jurisd_local_id' => $properties->jurisd_local_id,
