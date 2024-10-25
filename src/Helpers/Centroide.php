@@ -29,6 +29,6 @@ class Centroide
         $Cx /= (6 * $area);
         $Cy /= (6 * $area);
 
-        return ['lon' => $Cx, 'lat' => $Cy];
+        return ['lon' => number_format($Cx, 6), 'lat' => number_format($Cy, 6)];
     }
 }
