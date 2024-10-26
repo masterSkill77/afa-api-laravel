@@ -6,29 +6,24 @@ class Centroide
 {
     public static function calculateCentroid($coordinates)
     {
-        $area = 0; // L'aire du polygone
-        $Cx = 0;   // Coordonnée x du centroïde
-        $Cy = 0;   // Coordonnée y du centroïde
+        $Cx = 0;   // Coordonnée longitude du centroïde
+        $Cy = 0;   // Coordonnée latitude du centroïde
         $numPoints = count($coordinates);
 
-        // Calculer l'aire et les coordonnées du centroïde
+        // Calculer la somme des coordonnées en excluant le dernier point (point de fermeture)
         for ($i = 0; $i < $numPoints - 1; $i++) {
-            $x1 = $coordinates[$i]['lon'];
-            $y1 = $coordinates[$i]['lat'];
-            $x2 = $coordinates[$i + 1]['lon'];
-            $y2 = $coordinates[$i + 1]['lat'];
-
-            $crossProduct = ($x1 * $y2) - ($x2 * $y1);
-            $area += $crossProduct;
-            $Cx += ($x1 + $x2) * $crossProduct;
-            $Cy += ($y1 + $y2) * $crossProduct;
+            $Cx += floatval($coordinates[$i]['lon']);
+            $Cy += floatval($coordinates[$i]['lat']);
         }
 
-        // Terminer l'aire et les coordonnées du centroïde
-        $area /= 2;
-        $Cx /= (6 * $area);
-        $Cy /= (6 * $area);
+        // Calculer la moyenne en divisant par le nombre de points (excluant le point de fermeture)
+        $Cx /= ($numPoints - 1);
+        $Cy /= ($numPoints - 1);
 
-        return ['lon' => number_format($Cx, 6), 'lat' => number_format($Cy, 6)];
+        // Retourner les coordonnées formatées avec 6 décimales
+        return [
+            'lon' => number_format($Cx, 6, '.', ''),
+            'lat' => number_format($Cy, 6, '.', '')
+        ];
     }
 }
