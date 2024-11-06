@@ -19,16 +19,17 @@ class Level
 
     public static function getLevelFromResponse(mixed $side): int
     {
-        return match ((int) ceil($side)) {
-            6 => 155,
-            1024 => 80,
-            181 => 105,
-            32 => 130,
-            1 => 180,
-            default => (function () use ($side) {
-                $level = round($side / 10);
-                return $level * 10;
-            })()
-        };
+        switch (($side)) {
+            case $side < 2.5:
+                return 180;
+            case    2.5 <= $side && $side < 15:
+                return 155;
+            case 15 <= $side && $side < 100:
+                return 130;
+            case 100 <= $side && $side < 600:
+                return 105;
+            case 600 <= $side:
+                return 80;
+        }
     }
 }
