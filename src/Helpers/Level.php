@@ -5,9 +5,15 @@ namespace Masterskill\AfaApiLaravel\Helpers;
 class Level
 {
     const CITY_LEVEL = 1;
-    public static function getLevel(mixed $side): mixed
+
+    /**
+     * This method change our level into side. The side will be passed into the AFACode API
+     * @param mixed $level The level from the application
+     * @return mixed The side
+     */
+    public static function getLevel(mixed $level): mixed
     {
-        return match ((int) ceil($side)) {
+        return match ((int) ceil($level)) {
             180 => 0.5,
             155 => 2.5,
             130 => 16,
@@ -17,6 +23,11 @@ class Level
         };
     }
 
+    /**
+     * From AFACode, we don't have level but side. This method make correspondance with side and our level
+     *  @param mixed $side The side from AFACode
+     * @return int The correspondant level
+     */
     public static function getLevelFromResponse(mixed $side): int
     {
         switch (($side)) {

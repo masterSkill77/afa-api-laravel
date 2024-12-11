@@ -8,7 +8,12 @@ use Masterskill\AfaApiLaravel\Helpers\Level;
 
 final class CityDto
 {
-    public static function fromResponse(mixed $cityResponse): mixed
+    /**
+     * Transform Response from AFACode into something like used in the application
+     * @param mixed $cityResponse
+     * @return array
+     */
+    public static function fromResponse(mixed $cityResponse): array
     {
         $city = [];
 

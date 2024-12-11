@@ -8,7 +8,13 @@ use Masterskill\AfaApiLaravel\Helpers\Level;
 
 final class CellDto
 {
-    public static function fromResponse(mixed $cellResponse): mixed
+    /**
+     * This method transforms cell from AFACode into cell like used in application
+     * It stocks all info about the cell, like centroid, jurisd_local_id or it's polygon
+     * @param mixed $cellResponse
+     * @return array
+     */
+    public static function fromResponse(mixed $cellResponse): array
     {
         $cell = [];
 
