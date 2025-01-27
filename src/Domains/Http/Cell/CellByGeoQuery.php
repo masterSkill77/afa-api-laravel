@@ -32,6 +32,6 @@ class CellByGeoQuery extends Base
 
         $response = json_decode($this->client->get($query)->getBody()->getContents(), false);
 
-        return ($response->features) ? CellDto::fromResponse($response) : null;
+        return isset($response->features) ? CellDto::fromResponse($response) : null;
     }
 }

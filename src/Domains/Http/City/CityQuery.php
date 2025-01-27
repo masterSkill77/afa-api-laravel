@@ -36,7 +36,7 @@ class CityQuery extends Base
         $query = $this->processInput($query);
         try {
             $response = json_decode($this->client->get($query)->getBody()->getContents(), false);
-            return ($response->features) && isset(($response->features)[0]) ? CityDto::fromResponse($response) :  [];
+            return isset($response->features) && isset(($response->features)[0]) ? CityDto::fromResponse($response) :  [];
         } catch (Exception $e) {
             return [];
         }
