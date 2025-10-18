@@ -39,7 +39,7 @@ final class CellDto
 
         // $cellResult->l = Level::CITY_LEVEL;
 
-        $code = explode('~', $properties->short_code);
+        $code = explode('~', $properties->logistic_id);
         $cell[] = [
             'jurisd_local_id' => $properties->jurisd_local_id,
             'code_b32nvu' => $code[count($code) - 1],
