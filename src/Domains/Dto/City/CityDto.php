@@ -16,13 +16,13 @@ final class CityDto
     public static function fromResponse(mixed $cityResponse): array
     {
         $city = [];
+        $isCity = ($cityResponse->type == "Feature");
 
-        if (isset($cityResponse->features[0])) {
-            $properties = $cityResponse->features[0]->properties;
+        if (isset($cityResponse)) {
+            $cityResponse = $isCity ? $cityResponse : $cityResponse->features[0];
+            $properties = $cityResponse->properties;
 
-            $isCity = isset($properties->parent_id);
-
-            $coordinates = $isCity ? $cityResponse->features[0]->geometry->coordinates[0] : $cityResponse->features[0]->geometry->coordinates;
+            $coordinates = $isCity ? $cityResponse->geometry->coordinates[0] : $cityResponse->geometry->coordinates;
             $coordinatesResult = [];
 
             foreach ($coordinates[0] as $point) {
@@ -38,7 +38,7 @@ final class CityDto
 
             $cityResult = City::where('jurisd_local_id', $properties->jurisd_local_id)->first();
 
-            $code = $isCity  ? explode('-', $properties->canonical_pathname) : explode('~', $properties->short_code);
+            $code = $isCity  ? explode('-', $properties->canonical_pathname) : explode('~', $properties->logistic_id);
             $city[] = [
                 'jurisd_local_id' => $properties->jurisd_local_id,
                 'code_b32nvu' => $code[count($code) - 1],

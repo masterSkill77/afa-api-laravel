@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class Base
 {
-    const BASE_URL = "https://afa.codes";
+    const BASE_URL = "https://api.test.afa.codes";
 
     protected Client $client;
 

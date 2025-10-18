@@ -23,7 +23,7 @@ class CellByGeoQuery extends Base
     protected function processInput(float $lon, float $lat, ?int $level = null): string
     {
         $level = Level::getLevel($level);
-        return "/geo:" . $lat . "," . $lon . ($level ? ";u=" . $level : "") . ".json";
+        return "/geo:" . $lat . "," . $lon . ($level ? ";u=" . $level : "");
     }
 
     public function query(float $lon, float $lat, ?int $level = null)
@@ -31,7 +31,6 @@ class CellByGeoQuery extends Base
         $query = $this->processInput($lon, $lat, $level);
 
         $response = json_decode($this->client->get($query)->getBody()->getContents(), false);
-
         return isset($response->features) ? CellDto::fromResponse($response) : null;
     }
 }

@@ -22,8 +22,8 @@ class CityQuery extends Base
     protected function processInput(string $query): string
     {
         if (str_starts_with($query, "CM-"))
-            return $query . ".json";
-        return "CM-" . $query . ".json";
+            return $query;
+        return "CM-" . $query;
     }
 
     /**
@@ -36,7 +36,7 @@ class CityQuery extends Base
         $query = $this->processInput($query);
         try {
             $response = json_decode($this->client->get($query)->getBody()->getContents(), false);
-            return isset($response->features) && isset(($response->features)[0]) ? CityDto::fromResponse($response) :  [];
+            return isset($response->type) ? CityDto::fromResponse($response) :  [];
         } catch (Exception $e) {
             return [];
         }
