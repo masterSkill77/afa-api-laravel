@@ -37,7 +37,7 @@ final class CellDto
 
         $cellResult = City::where('jurisd_local_id', $properties->jurisd_local_id)->first();
 
-        // $cellResult->l = Level::CITY_LEVEL;
+        $cellResult->l = Level::CITY_LEVEL;
 
         $code = explode('~', $properties->logistic_id);
         $cell[] = [
@@ -52,7 +52,7 @@ final class CellDto
                 'type' => 'Point',
                 'coordinates' => $centroid
             ],
-            // 'city' => $cellResult
+            'city' => $cellResult
         ];
 
         return $cell;
