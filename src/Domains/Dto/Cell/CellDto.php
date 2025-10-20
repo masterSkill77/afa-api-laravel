@@ -14,7 +14,7 @@ final class CellDto
      * @param mixed $cellResponse
      * @return array
      */
-    public static function fromResponse(mixed $cellResponse): array
+    public static function fromResponse(mixed $cellResponse): array | null
     {
         $cell = [];
 
